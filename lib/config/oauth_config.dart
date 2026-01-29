@@ -1,8 +1,10 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 /// OAuth 2.0 Configuration
 /// DO NOT commit this file to public repositories with real credentials
 class GoogleOAuthConfig {
-  static const String clientId = '25807717577-fdsg501dptg8at31sqd0i95jfprp3frv.apps.googleusercontent.com';
-  static const String clientSecret = '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';
+  static final String clientId = dotenv.env['CLIENT_ID'] ?? '';
+  static final String clientSecret = dotenv.env['CLIENT_SECRET'] ?? '';
   static const String redirectUrl = 'http://localhost:8080/';
   
   // Google OAuth endpoints
