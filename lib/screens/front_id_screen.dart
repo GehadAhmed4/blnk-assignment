@@ -37,7 +37,6 @@ class _FrontIdScreenState extends State<FrontIdScreen> {
         return;
       }
 
-      // On Android, try camera first
       if (Platform.isAndroid) {
         final PermissionStatus cameraStatus = await Permission.camera.request();
 
@@ -93,7 +92,6 @@ class _FrontIdScreenState extends State<FrontIdScreen> {
     setState(() => _isLoading = true);
 
     try {
-      // Extract ID card from image
       final extractedImagePath = await IdCardProcessor.extractIdCard(_capturedImage!.path);
       
       if (extractedImagePath == null) {
@@ -135,7 +133,6 @@ class _FrontIdScreenState extends State<FrontIdScreen> {
     }
   }
 
-  /// Upload image to Google Drive without blocking UI
   Future<void> _uploadImageToGoogleDrive(
     UserDataProvider userDataProvider,
     String imagePath,

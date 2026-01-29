@@ -3,11 +3,9 @@ import 'dart:convert';
 import '../models/user_data.dart';
 
 class GoogleSheetsService {
-  // Your Google Apps Script deployment URL
   static const String _deploymentUrl =
       "https://script.google.com/macros/s/AKfycbzWAnfZQ0mnpjLQbpS4lgI4LoYVfEwvaTXqbwgImzg-sdhErf3GbO0cVsBk918xLjRx/exec";
 
-  /// Submit user data to Google Sheet (data only, no images for now)
   static Future<bool> submitUserData(UserData userData) async {
     try {
       print('\n📝 Submitting data to Google Sheet...');

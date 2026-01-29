@@ -25,7 +25,6 @@ class _BackIdScreenState extends State<BackIdScreen> {
     try {
       XFile? image;
 
-      // On iOS/macOS, use gallery as primary method
       if (Platform.isIOS || Platform.isMacOS) {
         image = await _imagePicker.pickImage(
           source: ImageSource.gallery,
@@ -38,7 +37,6 @@ class _BackIdScreenState extends State<BackIdScreen> {
         return;
       }
 
-      // On Android, try camera first
       if (Platform.isAndroid) {
         final PermissionStatus cameraStatus = await Permission.camera.request();
 
@@ -57,7 +55,6 @@ class _BackIdScreenState extends State<BackIdScreen> {
             preferredCameraDevice: CameraDevice.rear,
           );
         } catch (e) {
-          // Fallback to gallery if camera fails
           if (mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('Using gallery instead.')),
@@ -113,13 +110,11 @@ class _BackIdScreenState extends State<BackIdScreen> {
       
       print('Back ID extracted and saved: $extractedImagePath');
       
-      // Try to upload both images to Google Drive (non-blocking)
       await _uploadImagesToGoogleDrive(userDataProvider, extractedImagePath);
       
       print('Complete User Data:');
       print(userDataProvider.getUserDataAsJson());
       
-      // Submit data to Google Sheets
       print('Submitting data to Google Sheets...');
       final submitted = await GoogleSheetsService.submitUserData(userDataProvider.userData);
       
@@ -150,7 +145,6 @@ class _BackIdScreenState extends State<BackIdScreen> {
     }
   }
 
-  /// Upload both front and back images to Google Drive without blocking UI
   Future<void> _uploadImagesToGoogleDrive(
     UserDataProvider userDataProvider,
     String backIdPath,
@@ -166,7 +160,6 @@ class _BackIdScreenState extends State<BackIdScreen> {
         return;
       }
 
-      // Upload back ID
       final backFileName = '${firstName}_${lastName}_back.jpg';
       final backUrl = await GoogleDriveService.uploadImage(
         imagePath: backIdPath,
@@ -180,7 +173,6 @@ class _BackIdScreenState extends State<BackIdScreen> {
         print('⚠️ Failed to upload back ID, will proceed without URL');
       }
 
-      // Check if at least one image was uploaded successfully
       final frontUrl = userDataProvider.frontIdUrl;
       final atLeastOneUploaded = frontUrl != null || backUrl != null;
 

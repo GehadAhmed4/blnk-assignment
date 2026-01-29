@@ -16,13 +16,13 @@ class GoogleAuthService {
 
   GoogleAuthService._internal();
 
-  /// Get the current signed-in user
+  // Get the current signed-in user
   GoogleSignInAccount? get currentUser => _currentUser;
 
-  /// Check if user is signed in
+  // Check if user is signed in
   bool get isSignedIn => _currentUser != null;
 
-  /// Initialize auth service (check if already signed in)
+  // Initialize auth service (check if already signed in)
   Future<void> initialize() async {
     try {
       _currentUser = await _googleSignIn.signInSilently();
@@ -31,7 +31,7 @@ class GoogleAuthService {
     }
   }
 
-  /// Sign in with Google
+  // Sign in with Google
   Future<GoogleSignInAccount?> signIn() async {
     try {
       _currentUser = await _googleSignIn.signIn();
@@ -42,7 +42,7 @@ class GoogleAuthService {
     }
   }
 
-  /// Sign out from Google
+  // Sign out from Google
   Future<void> signOut() async {
     try {
       await _googleSignIn.signOut();
@@ -54,7 +54,7 @@ class GoogleAuthService {
     }
   }
 
-  /// Create an authenticated client for API calls
+  // Create an authenticated client for API calls
   // Future<void> _createAuthenticatedClient() async {
   //   try {
   //     final auth = await _currentUser!.authentication;
@@ -75,7 +75,7 @@ class GoogleAuthService {
   //   }
   // }
 
-  /// Get authenticated Drive API client
+  // Get authenticated Drive API client
   // Future<drive.DriveApi?> getDriveApi() async {
   //   if (_authenticatedClient == null) {
   //     await _createAuthenticatedClient();

@@ -4,8 +4,6 @@ import 'package:opencv_dart/opencv_dart.dart' as cv;
 import 'package:path_provider/path_provider.dart';
 
 class IdCardProcessor {
-  /// Process image to extract ID card using contour detection
-  /// Returns the path to the processed/extracted image
   static Future<String?> extractIdCard(String imagePath) async {
     try {
       // Read the original image

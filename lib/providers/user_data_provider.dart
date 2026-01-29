@@ -8,7 +8,6 @@ class UserDataProvider extends ChangeNotifier {
   UserData get userData => _userData;
   bool get imagesUploadedSuccessfully => _imagesUploadedSuccessfully;
 
-  // Personal Information
   void setFirstName(String firstName) {
     _userData.firstName = firstName;
     notifyListeners();
@@ -34,7 +33,6 @@ class UserDataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // Address Information
   void setApartment(String apartment) {
     _userData.apartment = apartment;
     notifyListeners();
@@ -70,7 +68,6 @@ class UserDataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // ID Information
   void setFrontIdImagePath(String path) {
     _userData.frontIdImagePath = path;
     notifyListeners();
@@ -102,13 +99,11 @@ class UserDataProvider extends ChangeNotifier {
   String? get frontIdUrl => _userData.frontIdUrl;
   String? get backIdUrl => _userData.backIdUrl;
 
-  // Reset all data (for next user registration)
   void resetUserData() {
     _userData = UserData();
     notifyListeners();
   }
 
-  // Get all user data as JSON
   Map<String, dynamic> getUserDataAsJson() {
     return _userData.toJson();
   }

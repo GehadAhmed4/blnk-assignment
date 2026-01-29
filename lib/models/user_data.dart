@@ -1,12 +1,11 @@
 class UserData {
-  // Personal Information
+  
   String? firstName;
   String? lastName;
   String? mobileNumber;
   String? landline;
   String? email;
 
-  // Address Information
   String? apartment;
   String? floor;
   String? building;
@@ -15,7 +14,6 @@ class UserData {
   String? city;
   String? landmark;
 
-  // ID Information
   String? frontIdImagePath;
   String? backIdImagePath;
   String? frontIdUrl;
@@ -23,13 +21,11 @@ class UserData {
   bool imagesUploadedToGoogleDrive = false;
 
   UserData({
-    // Personal Info
     this.firstName,
     this.lastName,
     this.mobileNumber,
     this.landline,
     this.email,
-    // Address Info
     this.apartment,
     this.floor,
     this.building,
@@ -37,7 +33,6 @@ class UserData {
     this.area,
     this.city,
     this.landmark,
-    // ID Info
     this.frontIdImagePath,
     this.backIdImagePath,
     this.frontIdUrl,
@@ -47,13 +42,11 @@ class UserData {
 
   Map<String, dynamic> toJson() {
     return {
-      // Personal Info
       'firstName': firstName,
       'lastName': lastName,
       'mobileNumber': mobileNumber,
       'landline': landline,
       'email': email,
-      // Address Info
       'apartment': apartment,
       'floor': floor,
       'building': building,
@@ -61,7 +54,6 @@ class UserData {
       'area': area,
       'city': city,
       'landmark': landmark,
-      // ID Info
       'frontIdImagePath': frontIdImagePath,
       'backIdImagePath': backIdImagePath,
       'frontIdUrl': frontIdUrl,
