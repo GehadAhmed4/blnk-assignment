@@ -50,7 +50,6 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
     try {
       final userDataProvider = context.read<UserDataProvider>();
       
-      // Save personal info to provider
       userDataProvider.setFirstName(_firstNameController.text);
       userDataProvider.setLastName(_lastNameController.text);
       userDataProvider.setMobileNumber(_mobileController.text);
@@ -176,7 +175,9 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                       label: 'Mobile Number',
                       keyboardType: TextInputType.phone,
                       inputFormatters: [
-                        FilteringTextInputFormatter.digitsOnly,
+                        FilteringTextInputFormatter.allow(
+                          RegExp(r"[0-9]"),
+                        ),
                       ],
                       validator: (value) {
                         if (value?.isEmpty ?? true) {

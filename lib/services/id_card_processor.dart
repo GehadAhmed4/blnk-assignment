@@ -2,10 +2,57 @@ import 'dart:io';
 import 'dart:math' show sqrt;
 import 'package:opencv_dart/opencv_dart.dart' as cv;
 import 'package:path_provider/path_provider.dart';
+import 'document_scanner_service.dart';
 
 class IdCardProcessor {
+  /// Extract ID card using ML Kit Document Scanner
+  /// IMPORTANT: ML Kit scanner is INTERACTIVE - opens a UI for the user
+  /// This should be called to launch the full scanner experience
+  static Future<String?> extractIdCardWithScanner() async {
+    try {
+      print('Launching ML Kit Document Scanner for ID card extraction');
+      
+      // Launch the interactive scanner - user will capture/select image in the UI
+      final extractedPath = await DocumentScannerService.launchDocumentScanner();
+      
+      if (extractedPath == null) {
+        print('User cancelled scanner or no image extracted');
+        return null;
+      }
+
+      print('ID card extracted successfully with ML Kit: $extractedPath');
+      return extractedPath;
+    } catch (e) {
+      print('Error launching scanner: $e');
+      return null;
+    }
+  }
+
+  /// Alternative: Extract ID card from already-captured image using OpenCV
+  /// This is a fallback method when you already have the image file
   static Future<String?> extractIdCard(String imagePath) async {
     try {
+      // Verify image exists
+      final imageFile = File(imagePath);
+      if (!imageFile.existsSync()) {
+        print('Image file not found: $imagePath');
+        return null;
+      }
+
+      print('Starting ID card extraction from captured image: $imagePath');
+      return await _extractIdCardWithOpenCV(imagePath);
+    } catch (e) {
+      print('Error in extractIdCard: $e');
+      return null;
+    }
+  }
+
+  /// Extract ID card using OpenCV
+  /// This processes an already-captured image to find and extract the ID card region
+  static Future<String?> _extractIdCardWithOpenCV(String imagePath) async {
+    try {
+      print('Processing image with OpenCV for contour detection');
+      
       // Read the original image
       final imageFile = File(imagePath);
       if (!imageFile.existsSync()) {
@@ -94,10 +141,10 @@ class IdCardProcessor {
 
       cv.imwrite(extractedPath, warped);
 
-      print('ID card extracted successfully: $extractedPath');
+      print('ID card extracted successfully with OpenCV: $extractedPath');
       return extractedPath;
     } catch (e) {
-      print('Error extracting ID card: $e');
+      print('Error extracting ID card with OpenCV: $e');
       return null;
     }
   }
